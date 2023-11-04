@@ -23,15 +23,15 @@ with st.form("my_form"):
    if submitted:
       x_test = np.array([[slider_Bodyweight, slider_PRI, slider_MAP, slider_APTT,
          num_TBil, num_eGFR, slider_BUN, num_UO]])
-      explainer = shap.TreeExplainer(model) #创建解释器，本例针对树模型创建解释器
-      shap_values = explainer.shap_values(x_test) #生成SHAP值
+      explainer = shap.TreeExplainer(model)
+      shap_values = explainer.shap_values(x_test) 
       temp = np.round(x_test, 2)
       shap.force_plot(explainer.expected_value[1], shap_values[1],temp,
          feature_names = ['Body weight','PRISM Ⅲ','MAP_min','APTT','TBil','eGFR','BUN','UO'], matplotlib=True, show=False)
       plt.xticks(fontproperties='Times New Roman', size=15)
       plt.yticks(fontproperties='Times New Roman', size=20)
       plt.tight_layout()
-      plt.savefig("19 AKI force plot.png",dpi=600) #可以保存图
+      plt.savefig("19 AKI force plot.png",dpi=600) 
       pred = model.predict_proba(x_test)
       st.markdown("#### _Based on feature values, predicted possibility of AKI is {}%_".format(round(pred[0][1], 4)*100))
       st.image('19 AKI force plot.png')
